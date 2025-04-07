@@ -13,6 +13,7 @@ QUEUE_TEST = queue_test.cpp
 PQ_TEST = priority_queue_test.cpp
 UF_TEST = union_find_test.cpp
 ALG_TEST = algorithms_test.cpp
+DOCTEST_TEST = test.cpp
 
 # Demo file
 MAIN_DEMO = main.cpp
@@ -41,8 +42,12 @@ UFTest: union_find.o $(UF_TEST:.cpp=.o)
 AlgTest: $(OBJECTS) $(ALG_TEST:.cpp=.o)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# Test all components
-test: GraphTest QueueTest PQTest UFTest AlgTest
+# Create doctest program
+DocTest: $(OBJECTS) $(DOCTEST_TEST:.cpp=.o)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+# Run all component tests
+test: GraphTest QueueTest PQTest UFTest AlgTest DocTest
 	@echo "Running Graph tests..."
 	./GraphTest
 	@echo "\nRunning Queue tests..."
@@ -53,6 +58,12 @@ test: GraphTest QueueTest PQTest UFTest AlgTest
 	./UFTest
 	@echo "\nRunning Algorithms tests..."
 	./AlgTest
+	@echo "\nRunning DocTest tests..."
+	./DocTest
+
+# Run only doctest tests
+doctest: DocTest
+	./DocTest
 
 # Check for memory leaks in main program
 valgrind: Main
@@ -65,6 +76,7 @@ valgrind-test: test
 	$(VALGRIND) ./PQTest
 	$(VALGRIND) ./UFTest
 	$(VALGRIND) ./AlgTest
+	$(VALGRIND) ./DocTest
 
 # Rule for object files
 %.o: %.cpp
@@ -72,4 +84,4 @@ valgrind-test: test
 
 # Clean temporary files
 clean:
-	rm -f *.o Main GraphTest QueueTest PQTest UFTest AlgTest
+	rm -f *.o Main GraphTest QueueTest PQTest UFTest AlgTest DocTest
