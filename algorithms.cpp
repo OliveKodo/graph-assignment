@@ -299,7 +299,7 @@ Graph Algorithms:: kruskal(const Graph& g){
     // Sort edges by weight (simple bubble sort for simplicity)
     for(int i = 0; i < edgeCount -1; i++){
         for(int j =0 ; j < edgeCount - 1 - i; j++){
-            if(edges[i].weight > edges[j+1].weight){
+            if(edges[j].weight > edges[j+1].weight){
         
         // Swap
         Edge temp = edges[j];
