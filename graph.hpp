@@ -1,3 +1,4 @@
+// tomergal40@gmail.com
 #pragma once
 
 namespace graph {
@@ -25,7 +26,7 @@ namespace graph {
 
     void addEdge(int src, int dest, int weight = 1);
     void removeEdge(int src, int dest);
-    void print_graph() const;;
+    void print_graph() const;
 
     int getNumVertices() const;
     Neighbor* getNeighbors(int vertex) const;
